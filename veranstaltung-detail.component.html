@@ -1,0 +1,110 @@
+<div class="veranstaltung-detail">
+    <div nz-row nzGutter="16">
+        <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="18">
+            <div class="seminar-nummer-i-3-3"> Seminar-Nr.: {{veranstaltung.seminarNr}} </div>
+            <div nzXs="24" nzSm="12">
+                <h1>{{veranstaltung.titel }} </h1>
+            </div>
+            <div *ngIf="isPdfLinkVisible" class="container-pdf-icon" (click)="parseSemNr()">Download Seminarinfo
+                <img src="../../../../assets/icons/file-pdf-box-outline.svg" class="pdf-icon">
+            </div>
+            <div class="kurztext" [innerHTML]="veranstaltung.kurzbeschreibung"></div>
+            <div>
+                <nz-collapse class="right" [nzBordered]="false">
+                    <nz-collapse-panel *ngFor="let panel of panels" [nzHeader]="panel.name" [nzActive]="panel.active"
+                        [ngClass]="{'is-zielgruppe-text': panel.name === 'Zielgruppe' ? true : false}"
+                        [nzDisabled]="panel.disabled">
+                        <span [innerHtml]="panel.value">
+                        </span>
+                    </nz-collapse-panel>
+                </nz-collapse>
+            </div>
+        </div>
+        <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" class="container-info-box">
+            <div class="rechte-teil">
+                <div nz-row *ngIf="veranstaltung.anzahlUebernachtungen != 0">
+                    <div class="icon-row">
+                        <div class="icon" nz-col nzXs="24" nzSm="12">
+                            <img src="../../../../assets/icons/clock.svg" alt="Veranstaltugnsdauer"
+                                title="Veranstaltugnsdauer">
+                        </div>
+                        <div class="icon2text" nz-col nzXs="24" nzSm="12">{{veranstaltung.anzahlUebernachtungen}} Tage
+                        </div>
+                    </div>
+                </div>
+                <div nz-row>
+                    <div class="icon-row">
+                        <div class="icon" nz-col nzXs="24" nzSm="12">
+                            <img src="../../../../assets/icons/calendar.svg" alt="Veranstaltungsbeginn"
+                                title="Veranstaltungsbeginn">
+                        </div>
+                        <div *ngIf="veranstaltung.beginnFormatted != 'Invalid date'" class="icon2text" nz-col nzXs="24"
+                            nzSm="6">{{veranstaltung.beginnFormatted}}</div>
+                    </div>
+                </div>
+                <div nz-row>
+                    <div class="icon-row">
+                        <div class="icon" nz-col nzXs="24" nzSm="12">
+                            <img src="../../../../assets/icons/pin.svg" alt="Verantaltungsort"
+                                title="Veranstaltungsort">
+                        </div>
+                        <div class="icon2text" nz-col nzXs="24" nzSm="12">
+                            {{veranstaltung.ort}}
+                        </div>
+                    </div>
+                </div>
+                <div nz-row>
+                    <div class="icon-row dozent">
+                        <div class="icon" nz-col nzXs="24" nzSm="12">
+                            <img src="../../../../assets/icons/person.svg" alt="Dozent*innen" title="Dozent*innen">
+                        </div>
+                        <div class="icon2text" nz-col nzXs="24" nzSm="12">
+                            {{veranstaltung.dozenten}}
+                        </div>
+                    </div>
+                </div>
+                <div nz-row *ngIf="veranstaltung.teilnahmebeitragAwo != 0">
+                    <div>
+                        <span class="price">
+                            {{veranstaltung.teilnahmebeitragAwoFormatted}} &euro;
+                        </span>
+                    </div>
+
+                </div>
+                <div nz-row *ngIf="veranstaltung.teilnahmebeitragAwo != 0">
+                    <div>
+                        (für AWO)
+                    </div>
+                </div>
+                <div nz-row *ngIf="veranstaltung.teilnahmebeitragExtern != 0" class="price-external">
+                    <div>
+                        <span class="price">
+                            {{veranstaltung.teilnahmebeitragExternFormatted}} &euro;
+                        </span>
+                    </div>
+
+                </div>
+                <div nz-row *ngIf="veranstaltung.teilnahmebeitragExtern != 0">
+                    <div>
+                        (für Externe)
+                    </div>
+                </div>
+                <div nz-row *ngIf="veranstaltung.istTeilnehmerbeitragInklUnterkunft" class="price-subtext">
+                    <div>
+                        inkl. Unterkunft
+                    </div>
+                </div>
+                <div nz-row nzXs="24" nzSm="6">
+                </div>
+                <div nz-row>
+                    <div nzXs="24" nzSm="6">
+                        <button nz-button class="cart-btn" [nzType]="'primary'" (click)="addToWarenkorb()">
+                            <div>In den Warenkorb</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
